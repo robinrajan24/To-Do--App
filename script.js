@@ -76,7 +76,7 @@ function ReadToDoItems() {
         ${
           style === ""
             ? ""
-            : '<img class="todo-controls" src="/images/tick.png">'
+            : '<img class="todo-controls" src="/images/check.png">'
         }
         
         </div>
@@ -148,7 +148,6 @@ function UpdateOnSelectedItems() {
 }
 
 // delete todo
-
 function DeleteToDoItems(e) {
   console.log(e);
   let deleteValue =
@@ -158,11 +157,15 @@ function DeleteToDoItems(e) {
     e.parentElement.parentElement.setAttribute("class", "deleted-item");
     todoValue.focus();
 
-    todo.forEach((ele) => {
-      if (ele.item == deleteValue.trim()) {
-        todo.splice(ele, 1);
-      }
-    });
+    // Find the index of the item to be deleted
+    const indexToDelete = todo.findIndex(
+      (ele) => ele.item.trim() === deleteValue
+    );
+
+    // Remove the item from the array if found
+    if (indexToDelete !== -1) {
+      todo.splice(indexToDelete, 1);
+    }
 
     setTimeout(() => {
       e.parentElement.parentElement.remove();
@@ -170,4 +173,37 @@ function DeleteToDoItems(e) {
 
     setLocalStorage();
   }
+}
+
+// Complete todo
+function CompleteToDoItems(e) {
+  console.log(e);
+  if (e.parentElement.querySelector("div").style.textDecoration === "") {
+    const img = document.createElement("img");
+    img.src = "/images/check.png";
+    img.className = "todo-controls";
+
+    e.parentElement.querySelector("div").style.textDecoration = "line-through";
+
+    e.parentElement.querySelector("div").appendChild(img);
+    e.parentElement.querySelector("img.edit").remove();
+
+    todo.forEach((ele) => {
+      if (e.parentElement.querySelector("div").innerText.trim() == ele.item) {
+        ele.status = true;
+      }
+    });
+
+    setLocalStorage();
+    setAlertMessage("Todo item Completed Successfully");
+  }
+}
+
+// Alert Message
+function setAlertMessage(message) {
+  todoAlert.removeAttribute("class");
+  todoAlert.innerText = message;
+  setTimeout(() => {
+    todoAlert.classList.add("toggleMe");
+  }, 1000);
 }
