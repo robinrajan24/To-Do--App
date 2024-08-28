@@ -153,8 +153,9 @@ function DeleteToDoItems(e) {
     todoValue.focus();
 
     // Find the index of the item to be deleted
+
     const indexToDelete = todo.findIndex(
-      (ele) => ele.item.trim() === deleteValue
+      (ele) => ele.item.trim() === deleteValue.trim()
     );
 
     // Remove the item from the array if found
