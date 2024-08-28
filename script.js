@@ -46,7 +46,6 @@ function CreateTodoItems() {
 
     let itemList = { item: todoValue.value, status: false };
     todo.push(itemList);
-    console.log(todo, "todo");
     setLocalStorage();
   }
 
@@ -62,7 +61,6 @@ function setLocalStorage() {
 
 function ReadToDoItems() {
   todo.forEach((ele) => {
-    console.log(ele, "read todo");
     let li = document.createElement("li");
     let style = "";
 
@@ -105,7 +103,6 @@ function ReadToDoItems() {
 ReadToDoItems();
 // edit todo
 function UpdateToDoItems(e) {
-  console.log(e, "ele");
   if (
     e.parentElement.parentElement.querySelector("div").style.textDecoration ===
     ""
@@ -129,7 +126,6 @@ function UpdateOnSelectedItems() {
   });
 
   if (isPresent) {
-    console.log("value already added");
     setAlertMessage("This item is already present in the list");
     return;
   }
@@ -149,7 +145,6 @@ function UpdateOnSelectedItems() {
 
 // delete todo
 function DeleteToDoItems(e) {
-  console.log(e);
   let deleteValue =
     e.parentElement.parentElement.querySelector("div").innerText;
 
@@ -177,7 +172,6 @@ function DeleteToDoItems(e) {
 
 // Complete todo
 function CompleteToDoItems(e) {
-  console.log(e);
   if (e.parentElement.querySelector("div").style.textDecoration === "") {
     const img = document.createElement("img");
     img.src = "/images/check.png";
